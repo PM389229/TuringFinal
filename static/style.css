@@ -1,0 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin: 50px auto 20px; /* Ajout de la marge auto pour centrer horizontalement et un espace en haut de 50px et en bas de 20px */
+    width: fit-content; /* Ajustement de la largeur du conteneur à celle du contenu */
+}

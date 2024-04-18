@@ -1,0 +1,7 @@
+Flask==2.1.2
+mysql-connector-python==8.0.29
+transformers==4.20.1
+python-dotenv==0.20.0
+hugchat==0.4.2  # Assurez-vous que cette version existe ou adaptez-la selon la bibliothèque que vous utilisez
+Werkzeug==2.0.2
+

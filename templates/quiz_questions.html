@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: auto;
+            width: 80%;
+        }
+        .btn-primary {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Quiz</h2>
+        <form action="/result" method="POST" id="quizForm">
+            {% for phrase in phrases %}
+            <div class="form-group question" id="question{{ loop.index }}" style="{{ 'display: block;' if loop.first else 'display: none;' }}">
+
+                <p>{{ phrase[1] }}</p>
+                <input type="hidden" name="phrase{{ loop.index }}" value="{{ phrase[1] }}">
+                <input type="hidden" name="type{{ loop.index }}" value="{{ 'Formateur' if phrase[2] == 1 else 'LLM' }}">
+                <select name="answer{{ loop.index }}" class="form-control" required>
+                    <option value="Formateur">Formateur</option>
+                    <option value="LLM">LLM</option>
+                </select>
+            </div>
+            {% endfor %}
+            
+            <button type="button" class="btn btn-info" onclick="prevQuestion()">Précédent</button>
+            <button type="button" class="btn btn-info" onclick="nextQuestion()">Suivant</button>
+            <button type="submit" class="btn btn-primary" id="submitButton" style="display:none;">Submit Answers</button>
+        </form>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = {{ phrases|length }};
+        function showQuestion(number) {
+            document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+            document.querySelector('#question' + number).style.display = 'block';
+        }
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+            if (currentQuestion === totalQuestions) {
+                document.getElementById('submitButton').style.display = 'inline';
+            }
+        }
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+                document.getElementById('submitButton').style.display = 'none';
+            }
+        }
+        showQuestion(1); // Initialize the quiz with the first question visible
+    </script>
+
+    <!-- Include Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #17a2b8; /* Bootstrap's info color */
+            color: #fff;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.2); /* Light opacity to see the form better */
+        }
+        .btn-custom {
+            background-color: #28a745; /* Bootstrap's success color */
+            border: none;
+        }
+        a.link-custom {
+            color: #ffc107; /* Bootstrap's warning color */
+            text-decoration: none;
+        }
+        a.link-custom:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Connexion</h2>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form action="/login" method="post" class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                <div class="invalid-feedback">
+                    Veuillez saisir un nom d'utilisateur.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="invalid-feedback">
+                    Veuillez saisir un mot de passe.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-custom">Se connecter</button>
+        </form>
+        <p>Vous n'avez pas de compte ? <a href="/register" class="link-custom">Inscrivez-vous ici</a>.</p>
+    </div>
+
+    <!-- Include Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

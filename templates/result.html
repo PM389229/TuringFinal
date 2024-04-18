@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa; /* light grey background */
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: auto;
+            width: 50%;
+            text-align: center;
+        }
+        .score {
+            font-size: 1.5em;
+            color: #28a745; /* Bootstrap success color for good score */
+        }
+        .total {
+            font-size: 1.5em;
+            color: #17a2b8; /* Bootstrap info color for total points */
+        }
+        .answer-detail {
+            padding: 0 20px;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .answer-detail p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Quiz Result</h2>
+        <p class="score">Your score: <span>{{ score }}</span>/<span class="total">{{ total }}</span></p>
+    </div>
+    <div class="container answer-detail">
+        {% for phrase, expected, answer in phrases_and_answers %}
+        <p>{{ loop.index }}. {{ phrase }}<br>
+        <strong>Attendue:</strong> {{ expected.title() }} <br>
+        <strong>Votre Réponse:</strong> {{ answer.title() }} (<span class="{{ 'correct' if answer == expected else 'incorrect' }}">{{ 'Correct' if answer == expected else 'Incorrect' }}</span>)</p>
+        {% endfor %}
+    </div>
+    
+    <!-- Include Bootstrap JS and its dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
